@@ -125,7 +125,7 @@ export default function DesignMono() {
             stack={['Laravel', 'Tailwind', 'SQL']} 
           />
 
-           {/* EXPERIENCE LOG - UPDATED TIMELINE */}
+           {/* EXPERIENCE LOG */}
            <div className="md:col-span-2 lg:col-span-1 bg-noir p-8 border-b border-r border-silver flex flex-col justify-between group hover:bg-paper transition-colors duration-300 min-h-[300px]" id="about">
              <h3 className="font-mono text-xs text-gray-500 mb-6 uppercase tracking-widest group-hover:text-black transition-colors">Career Log</h3>
              
@@ -159,32 +159,55 @@ export default function DesignMono() {
              </div>
            </div>
 
+           {/* FILLING EMPTY SPACES WITH TECH CARDS */}
+           
+           {/* TECH ARSENAL */}
+           <MonoCard 
+            number="004" 
+            title="Tech Arsenal" 
+            category="Core Stack" 
+            desc="Comprehensive toolkit for secure, scalable development and infrastructure management." 
+            stack={['Flutter', 'Laravel', 'Python', 'Java', 'Linux']} 
+           />
+
+           {/* LEADERSHIP / METHODOLOGY */}
+           <MonoCard 
+            number="005" 
+            title="Lead Protocol" 
+            category="Workflow" 
+            desc="Leading agile teams through the full SDLC. Expert in sprint planning and version control." 
+            stack={['Agile', 'Scrum', 'Jira', 'Git', 'Team Lead']} 
+           />
+
         </div>
       </main>
       
-      {/* FOOTER */}
-      <footer className="py-20 px-6 border-b border-silver" id="contact">
-        <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-end gap-12">
+      {/* FOOTER - CENTERED */}
+      <footer className="py-20 px-6 border-b border-silver bg-noir" id="contact">
+        <div className="max-w-[1600px] mx-auto flex flex-col items-center justify-center text-center gap-12">
           
+          {/* TITLE */}
           <div>
-             <h2 className="text-[10vw] font-black leading-none tracking-tighter hover:text-gray-700 transition-colors cursor-pointer">
+             <h2 className="text-[12vw] font-black leading-none tracking-tighter hover:text-gray-700 transition-colors cursor-pointer select-none">
                LET'S TALK
              </h2>
           </div>
 
-          <div className="flex flex-col gap-6 text-right">
+          {/* CONTACT INFO */}
+          <div className="flex flex-col gap-6 items-center">
              <div className="font-mono text-xs text-gray-500 uppercase tracking-widest">Contact Signal</div>
              
-             <div className="flex flex-col gap-1">
-               <a href="mailto:sreerajsr49@gmail.com" className="text-xl font-bold text-paper hover:text-white transition-colors">sreerajsr49@gmail.com</a>
-               <a href="tel:+917593825257" className="text-xl font-bold text-paper hover:text-white transition-colors">+91 7593825257</a>
+             <div className="flex flex-col gap-2 items-center">
+               <a href="mailto:sreerajsr49@gmail.com" className="text-xl md:text-2xl font-bold text-paper hover:text-white transition-colors">sreerajsr49@gmail.com</a>
+               <a href="tel:+917593825257" className="text-xl md:text-2xl font-bold text-paper hover:text-white transition-colors">+91 7593825257</a>
              </div>
 
-             <div className="flex justify-end gap-4 mt-4">
-                <a href="#" className="p-2 border border-silver text-gray-400 hover:text-black hover:bg-paper transition-colors rounded-full" aria-label="LinkedIn">
+             {/* LOGOS */}
+             <div className="flex gap-6 mt-4">
+                <a href="https://www.linkedin.com/in/sreeraj-sr7/" target="_blank" rel="noopener noreferrer" className="p-3 border border-silver text-gray-400 hover:text-black hover:bg-paper transition-all duration-300 rounded-full" aria-label="LinkedIn">
                    <LinkedInIcon />
                 </a>
-                <a href="#" className="p-2 border border-silver text-gray-400 hover:text-black hover:bg-paper transition-colors rounded-full" aria-label="GitHub">
+                <a href="https://github.com/sree-sr7" target="_blank" rel="noopener noreferrer" className="p-3 border border-silver text-gray-400 hover:text-black hover:bg-paper transition-all duration-300 rounded-full" aria-label="GitHub">
                    <GitHubIcon />
                 </a>
              </div>
