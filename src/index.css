@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 1. RESET DEFAULTS (Overrides the dark mode issue) */
+:root {
+  background-color: white; /* Forces light mode base */
+  color: black;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  /* Removed 'place-items: center' so your layout can flow naturally */
+  display: block; 
+}
+
+/* 2. CUSTOM ANIMATIONS FOR YOUR DESIGN */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+/* 3. TEXT EFFECTS */
+.text-stroke-black {
+  -webkit-text-stroke: 2px black; /* Creates the hollow text effect */
+  color: transparent;
+}
+
+/* Optional: Smooth scrolling for the whole page */
+html {
+  scroll-behavior: smooth;
+}
