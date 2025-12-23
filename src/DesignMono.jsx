@@ -16,19 +16,21 @@ const LinkedInIcon = () => (
 
 // Reusable Project Card
 const MonoCard = ({ number, title, category, stack, desc }) => (
-  <div className="group relative border-b border-r border-silver bg-noir hover:bg-paper transition-colors duration-300 h-full min-h-[300px] flex flex-col justify-between p-8 cursor-pointer">
-    <div className="flex justify-between items-start w-full">
+  <div className="group relative border-b border-r border-silver bg-noir hover:bg-paper transition-colors duration-300 h-full flex flex-col justify-between p-8 cursor-pointer">
+    <div className="flex justify-between items-start w-full mb-6">
       <span className="font-mono text-xs text-gray-500 group-hover:text-black transition-colors">{number}</span>
       <span className="font-mono text-xs border border-silver px-2 py-1 rounded-full text-gray-400 group-hover:border-black group-hover:text-black transition-colors uppercase">{category}</span>
     </div>
-    <div className="mt-8">
-      <h3 className="text-4xl font-bold text-paper mb-4 group-hover:text-noir transition-colors leading-tight">{title}</h3>
-      <p className="text-gray-500 group-hover:text-gray-800 text-sm leading-relaxed max-w-sm transition-colors">{desc}</p>
+    
+    <div className="flex-grow flex flex-col justify-center">
+      <h3 className="text-4xl font-bold text-paper mb-6 group-hover:text-noir transition-colors leading-tight">{title}</h3>
+      <p className="text-gray-400 group-hover:text-gray-800 text-base leading-relaxed max-w-md transition-colors">{desc}</p>
     </div>
+
     <div className="mt-8 pt-6 border-t border-silver/30 group-hover:border-black/10">
-      <div className="flex flex-wrap gap-x-4 gap-y-2">
+      <div className="flex flex-wrap gap-x-4 gap-y-3">
         {stack.map(tech => (
-          <span key={tech} className="text-xs font-mono text-gray-400 group-hover:text-black font-bold">[{tech}]</span>
+          <span key={tech} className="text-sm font-mono text-gray-500 group-hover:text-black font-bold">[{tech}]</span>
         ))}
       </div>
     </div>
@@ -36,6 +38,11 @@ const MonoCard = ({ number, title, category, stack, desc }) => (
 );
 
 export default function DesignMono() {
+  // MARQUEE FIX: Repeat text 4 times to ensure it is WIDER than any screen
+  // This prevents overlap because we don't need 'min-w-full' anymore
+  const baseText = "FLUTTER DEVELOPMENT /// LARAVEL BACKEND /// CYBER SECURITY /// SQLITE /// FIREBASE /// PYTHON AUTOMATION /// ";
+  const fullMarquee = baseText.repeat(4);
+
   return (
     <div className="min-h-screen bg-noir text-paper font-sans selection:bg-paper selection:text-noir overflow-x-hidden">
       
@@ -45,20 +52,30 @@ export default function DesignMono() {
       <nav className="fixed top-0 left-0 w-full z-50 border-b border-silver bg-noir/80 backdrop-blur-sm">
         <div className="flex justify-between items-center px-6 h-16 max-w-[1600px] mx-auto">
           <div className="font-black text-xl tracking-tighter">SREE<span className="text-gray-500">.DEV</span></div>
-          <div className="flex gap-6 text-xs font-mono font-bold tracking-widest uppercase">
-            <a href="#work" className="hover:underline decoration-2 underline-offset-4">Index</a>
-            <a href="#about" className="hover:underline decoration-2 underline-offset-4">Profile</a>
-            <a href="#contact" className="hover:bg-paper hover:text-noir px-3 py-1 transition-colors border border-silver">Contact</a>
+          
+          <div className="flex items-center gap-6">
+            <div className="hidden md:flex gap-6 text-xs font-mono font-bold tracking-widest uppercase">
+              <a href="#work" className="hover:underline decoration-2 underline-offset-4">Index</a>
+              <a href="#contact" className="hover:underline decoration-2 underline-offset-4">Contact</a>
+            </div>
+            
+            <a 
+              href="/resume.pdf" 
+              download="Sreeraj_Sreekumar_Resume.pdf"
+              className="text-xs font-mono font-bold tracking-widest uppercase px-4 py-2 border border-silver hover:bg-paper hover:text-noir transition-all duration-300"
+            >
+              [ DOWNLOAD CV ]
+            </a>
           </div>
         </div>
       </nav>
 
       {/* HEADER */}
       <header className="pt-32 pb-24 border-b border-silver relative z-10">
-        <div className="max-w-[1600px] mx-auto w-full flex flex-col lg:flex-row items-center justify-between gap-16 px-6">
+        <div className="max-w-[1600px] mx-auto w-full flex flex-col lg:flex-row items-start justify-between gap-16 px-6">
           
-          <div className="relative z-20 flex-1">
-            <p className="font-mono text-xs text-gray-500 mb-4 animate-pulse">
+          <div className="relative z-20 flex-1 pt-4">
+            <p className="font-mono text-xs text-gray-500 mb-4">
               SYSTEM_STATUS: ONLINE // ROLE: SECURITY_ARCHITECT
             </p>
             
@@ -68,12 +85,42 @@ export default function DesignMono() {
               ENGINEER
             </h1>
 
-            <div className="flex flex-col gap-8 max-w-2xl">
+            <div className="flex flex-col gap-10 max-w-2xl">
                <p className="text-xl text-gray-400 leading-snug">
                  Leveraging <span className="text-paper font-bold">Full Stack</span> architecture knowledge to audit, protect, and recover digital assets. 
                  Pivoting from development to <span className="text-paper font-bold">Vulnerability Assessment</span> and <span className="text-paper font-bold">Network Defense</span>. 
                  Actively advancing into <span className="text-paper font-bold">Python Automation</span> for offensive security.
                </p>
+
+               {/* STATUS MONITOR - FIXED SYNTAX ERRORS */}
+               <div className="font-mono text-sm border border-silver/30 p-6 bg-black/40 backdrop-blur-md w-full shadow-2xl cursor-default">
+                  <div className="flex items-center gap-3 mb-5 border-b border-silver/20 pb-3">
+                    <span className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"/>
+                    <span className="text-gray-400 tracking-widest uppercase font-bold text-xs">LIVE_PROCESS_MONITOR</span>
+                  </div>
+
+                  <div className="space-y-5 text-gray-300">
+                    {/* Item 1 */}
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 group transition-all duration-300">
+                      <div className="flex gap-3">
+                         {/* FIX: Used &gt; instead of > to fix parsing error */}
+                         <span className="text-gray-500 font-bold">&gt;&gt; PROJECT:</span>
+                         <span className="uppercase font-bold tracking-wide text-gray-200 group-hover:text-green-400 transition-colors duration-300">Intrusion_Detection_Sys</span>
+                      </div>
+                      <span className="text-gray-500 text-xs border border-silver/40 px-2 py-1 bg-noir/50">[PYTHON/DJANGO]</span>
+                    </div>
+
+                    {/* Item 2 */}
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 group transition-all duration-300">
+                      <div className="flex gap-3">
+                         {/* FIX: Used &gt; instead of > to fix parsing error */}
+                         <span className="text-gray-500 font-bold">&gt;&gt; CERT:</span>
+                         <span className="uppercase font-bold tracking-wide text-gray-200 group-hover:text-green-400 transition-colors duration-300">Software_Testing</span>
+                      </div>
+                      <span className="text-gray-500 text-xs border border-silver/40 px-2 py-1 bg-noir/50">[GEEKS_FOR_GEEKS]</span>
+                    </div>
+                  </div>
+                </div>
             </div>
           </div>
 
@@ -84,14 +131,17 @@ export default function DesignMono() {
         </div>
       </header>
 
-      {/* MARQUEE */}
-      <div className="border-b border-silver overflow-hidden py-3 bg-paper text-noir flex relative">
-        <div className="animate-marquee whitespace-nowrap font-mono font-bold text-lg tracking-widest flex-shrink-0 min-w-full px-4">
-           FLUTTER DEVELOPMENT /// LARAVEL BACKEND /// CYBER SECURITY /// SQLITE /// FIREBASE /// PYTHON AUTOMATION /// 
-        </div>
-        <div className="animate-marquee whitespace-nowrap font-mono font-bold text-lg tracking-widest flex-shrink-0 min-w-full px-4">
-           FLUTTER DEVELOPMENT /// LARAVEL BACKEND /// CYBER SECURITY /// SQLITE /// FIREBASE /// PYTHON AUTOMATION /// 
-        </div>
+      {/* MARQUEE - OVERLAP FIXED */}
+      <div className="border-b border-silver overflow-hidden py-3 bg-paper text-noir flex relative select-none">
+         <div className="flex w-full overflow-hidden">
+            {/* Removed 'min-w-full' - relying on content width to prevent overlap */}
+            <div className="animate-marquee whitespace-nowrap font-mono font-bold text-lg tracking-widest flex-shrink-0 px-4 will-change-transform">
+               {fullMarquee}
+            </div>
+            <div className="animate-marquee whitespace-nowrap font-mono font-bold text-lg tracking-widest flex-shrink-0 px-4 will-change-transform" aria-hidden="true">
+               {fullMarquee}
+            </div>
+         </div>
       </div>
 
       {/* PROJECTS & EXPERIENCE GRID */}
@@ -103,14 +153,14 @@ export default function DesignMono() {
             number="001" 
             title="Elderly Companion" 
             category="Flutter App" 
-            desc="Offline-first medication & appointment manager. Features SOS location sharing and Razorpay integration." 
+            desc="Offline-first reminder system for medications, stock expiry, and upcoming appointments. Features SOS location sharing and Razorpay integration." 
             stack={['Flutter', 'SQLite', 'Firebase', 'Razorpay']} 
           />
           
           {/* PROJECT 2 */}
           <MonoCard 
             number="002" 
-            title="FitGen Platform" 
+            title="FitTrack" 
             category="Full Stack Web" 
             desc="Dynamic workout generator and progress tracker. Generates routines based on user physique requirements." 
             stack={['PHP', 'Bootstrap', 'JS', 'MySQL']} 
@@ -126,23 +176,20 @@ export default function DesignMono() {
           />
 
            {/* EXPERIENCE LOG */}
-           <div className="md:col-span-2 lg:col-span-1 bg-noir p-8 border-b border-r border-silver flex flex-col justify-between group hover:bg-paper transition-colors duration-300 min-h-[300px]" id="about">
+           <div className="md:col-span-2 lg:col-span-1 bg-noir p-8 border-b border-r border-silver flex flex-col justify-between group hover:bg-paper transition-colors duration-300" id="about">
              <h3 className="font-mono text-xs text-gray-500 mb-6 uppercase tracking-widest group-hover:text-black transition-colors">Career Log</h3>
              
              <div className="space-y-8">
-                {/* 1. LATEST: MCA */}
                 <div>
                   <div className="text-lg font-bold text-paper group-hover:text-noir transition-colors">Master of Computer Applications</div>
                   <div className="text-xs font-mono text-gray-500 group-hover:text-gray-600 transition-colors">Rajagiri College • 2025-2027</div>
                 </div>
 
-                {/* 2. UG: BCA */}
                 <div>
                    <div className="text-lg font-bold text-paper group-hover:text-noir transition-colors">Bachelor of Computer Applications</div>
                    <div className="text-xs font-mono text-gray-500 group-hover:text-gray-600 transition-colors">SCMS School of Technology • 2022-2025</div>
                 </div>
 
-                {/* 3. WORK: SEALORD (Pre-UG) */}
                 <div>
                   <div className="text-lg font-bold text-paper group-hover:text-noir transition-colors">Asst. Reservations Manager</div>
                   <div className="text-xs font-mono text-gray-500 group-hover:text-gray-600 transition-colors">Sealord Hotel Group • 2022</div>
@@ -151,7 +198,6 @@ export default function DesignMono() {
                   </p>
                 </div>
 
-                {/* 4. SCHOOLING */}
                 <div>
                    <div className="text-lg font-bold text-paper group-hover:text-noir transition-colors">Higher Secondary</div>
                    <div className="text-xs font-mono text-gray-500 group-hover:text-gray-600 transition-colors">Indian School Al-Seeb, Oman</div>
@@ -159,50 +205,44 @@ export default function DesignMono() {
              </div>
            </div>
 
-           {/* FILLING EMPTY SPACES WITH TECH CARDS */}
-           
            {/* TECH ARSENAL */}
            <MonoCard 
             number="004" 
             title="Tech Arsenal" 
             category="Core Stack" 
-            desc="Comprehensive toolkit for secure, scalable development and infrastructure management." 
-            stack={['Flutter', 'Laravel', 'Python', 'Java', 'Linux']} 
+            desc="My toolkit is a mix of builder and breaker. I specialize in Flutter for rapid mobile engineering, while relying on Python, Linux, and Shell scripting to handle the security and automation architecture."
+            stack={['Flutter', 'Dart', 'Python', 'Django', 'Linux', 'Shell', 'Java', 'PHP', 'JS', 'MySQL', 'Firebase', 'Git']} 
            />
 
-           {/* LEADERSHIP / METHODOLOGY */}
+           {/* LEAD PROTOCOL */}
            <MonoCard 
             number="005" 
             title="Lead Protocol" 
             category="Workflow" 
-            desc="Leading agile teams through the full SDLC. Expert in sprint planning and version control." 
-            stack={['Agile', 'Scrum', 'Jira', 'Git', 'Team Lead']} 
+            desc="Leading teams is about momentum. I use Agile to keep development on track, Git to handle the inevitable merge conflicts, and clear sprint planning to ensure we actually deliver on time."
+            stack={['Agile', 'Scrum', 'Git Flow', 'Sprint Planning', 'Code Review', 'Team Leadership', 'Conflict Resolution']} 
            />
 
         </div>
       </main>
       
-      {/* FOOTER - CENTERED */}
+      {/* FOOTER */}
       <footer className="py-20 px-6 border-b border-silver bg-noir" id="contact">
         <div className="max-w-[1600px] mx-auto flex flex-col items-center justify-center text-center gap-12">
           
-          {/* TITLE */}
           <div>
              <h2 className="text-[12vw] font-black leading-none tracking-tighter hover:text-gray-700 transition-colors cursor-pointer select-none">
                LET'S TALK
              </h2>
           </div>
 
-          {/* CONTACT INFO */}
           <div className="flex flex-col gap-6 items-center">
              <div className="font-mono text-xs text-gray-500 uppercase tracking-widest">Contact Signal</div>
              
              <div className="flex flex-col gap-2 items-center">
                <a href="mailto:sreerajsr49@gmail.com" className="text-xl md:text-2xl font-bold text-paper hover:text-white transition-colors">sreerajsr49@gmail.com</a>
-               <a href="tel:+917593825257" className="text-xl md:text-2xl font-bold text-paper hover:text-white transition-colors">+91 7593825257</a>
              </div>
 
-             {/* LOGOS */}
              <div className="flex gap-6 mt-4">
                 <a href="https://www.linkedin.com/in/sreeraj-sr7/" target="_blank" rel="noopener noreferrer" className="p-3 border border-silver text-gray-400 hover:text-black hover:bg-paper transition-all duration-300 rounded-full" aria-label="LinkedIn">
                    <LinkedInIcon />

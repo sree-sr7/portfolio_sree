@@ -19,11 +19,12 @@ export default {
         'grid-pattern': "linear-gradient(to right, #27272a 1px, transparent 1px), linear-gradient(to bottom, #27272a 1px, transparent 1px)",
       },
       animation: {
-        marquee: 'marquee 25s linear infinite',
+        // Updated to 900s for very slow movement
+        marquee: 'marquee 900s linear infinite',
       },
       keyframes: {
         marquee: {
-          '0%': { transform: 'translateX(0%)' },
+          '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-100%)' },
         },
       },

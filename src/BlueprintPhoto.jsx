@@ -30,7 +30,7 @@ export default function BlueprintPhoto() {
           
           {/* Scan Text */}
           <div className="absolute bottom-2 right-4 font-mono text-[10px] font-bold tracking-widest text-paper/60">
-            NAME: SREERAJ // MOBILE: 7593825257
+            NAME: SREERAJ 
           </div>
         </div>
       </div>
