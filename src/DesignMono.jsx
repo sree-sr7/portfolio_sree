@@ -39,7 +39,6 @@ const MonoCard = ({ number, title, category, stack, desc }) => (
 
 export default function DesignMono() {
   // MARQUEE FIX: Repeat text 4 times to ensure it is WIDER than any screen
-  // This prevents overlap because we don't need 'min-w-full' anymore
   const baseText = "FLUTTER DEVELOPMENT /// LARAVEL BACKEND /// CYBER SECURITY /// SQLITE /// FIREBASE /// PYTHON AUTOMATION /// ";
   const fullMarquee = baseText.repeat(4);
 
@@ -92,7 +91,7 @@ export default function DesignMono() {
                  Actively advancing into <span className="text-paper font-bold">Python Automation</span> for offensive security.
                </p>
 
-               {/* STATUS MONITOR - FIXED SYNTAX ERRORS */}
+               {/* STATUS MONITOR - ADDED ISC2 CERT */}
                <div className="font-mono text-sm border border-silver/30 p-6 bg-black/40 backdrop-blur-md w-full shadow-2xl cursor-default">
                   <div className="flex items-center gap-3 mb-5 border-b border-silver/20 pb-3">
                     <span className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"/>
@@ -103,17 +102,24 @@ export default function DesignMono() {
                     {/* Item 1 */}
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 group transition-all duration-300">
                       <div className="flex gap-3">
-                         {/* FIX: Used &gt; instead of > to fix parsing error */}
                          <span className="text-gray-500 font-bold">&gt;&gt; PROJECT:</span>
                          <span className="uppercase font-bold tracking-wide text-gray-200 group-hover:text-green-400 transition-colors duration-300">Intrusion_Detection_Sys</span>
                       </div>
                       <span className="text-gray-500 text-xs border border-silver/40 px-2 py-1 bg-noir/50">[PYTHON/DJANGO]</span>
                     </div>
 
-                    {/* Item 2 */}
+                    {/* Item 2 - ISC2 ADDED HERE */}
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 group transition-all duration-300">
                       <div className="flex gap-3">
-                         {/* FIX: Used &gt; instead of > to fix parsing error */}
+                         <span className="text-gray-500 font-bold">&gt;&gt; CERT:</span>
+                         <span className="uppercase font-bold tracking-wide text-gray-200 group-hover:text-green-400 transition-colors duration-300">ISC2_Certified_in_Cybersecurity</span>
+                      </div>
+                      <span className="text-gray-500 text-xs border border-silver/40 px-2 py-1 bg-noir/50">[ISC2]</span>
+                    </div>
+
+                    {/* Item 3 */}
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 group transition-all duration-300">
+                      <div className="flex gap-3">
                          <span className="text-gray-500 font-bold">&gt;&gt; CERT:</span>
                          <span className="uppercase font-bold tracking-wide text-gray-200 group-hover:text-green-400 transition-colors duration-300">Software_Testing</span>
                       </div>
@@ -131,10 +137,9 @@ export default function DesignMono() {
         </div>
       </header>
 
-      {/* MARQUEE - OVERLAP FIXED */}
+      {/* MARQUEE */}
       <div className="border-b border-silver overflow-hidden py-3 bg-paper text-noir flex relative select-none">
          <div className="flex w-full overflow-hidden">
-            {/* Removed 'min-w-full' - relying on content width to prevent overlap */}
             <div className="animate-marquee whitespace-nowrap font-mono font-bold text-lg tracking-widest flex-shrink-0 px-4 will-change-transform">
                {fullMarquee}
             </div>
