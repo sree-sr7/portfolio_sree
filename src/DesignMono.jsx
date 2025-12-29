@@ -16,15 +16,15 @@ const LinkedInIcon = () => (
 
 // Reusable Project Card
 const MonoCard = ({ number, title, category, stack, desc }) => (
-  <div className="group relative border-b border-r border-silver bg-noir hover:bg-paper transition-colors duration-300 h-full flex flex-col justify-between p-8 cursor-pointer">
+  <div className="group relative bg-noir hover:bg-paper transition-colors duration-300 h-full flex flex-col justify-between p-8 cursor-pointer min-w-[85vw] md:min-w-0 flex-shrink-0 snap-center border-b border-r border-silver">
     <div className="flex justify-between items-start w-full mb-6">
       <span className="font-mono text-xs text-gray-500 group-hover:text-black transition-colors">{number}</span>
       <span className="font-mono text-xs border border-silver px-2 py-1 rounded-full text-gray-400 group-hover:border-black group-hover:text-black transition-colors uppercase">{category}</span>
     </div>
     
     <div className="flex-grow flex flex-col justify-center">
-      <h3 className="text-4xl font-bold text-paper mb-6 group-hover:text-noir transition-colors leading-tight">{title}</h3>
-      <p className="text-gray-400 group-hover:text-gray-800 text-base leading-relaxed max-w-md transition-colors">{desc}</p>
+      <h3 className="text-3xl md:text-4xl font-bold text-paper mb-6 group-hover:text-noir transition-colors leading-tight">{title}</h3>
+      <p className="text-gray-400 group-hover:text-gray-800 text-sm md:text-base leading-relaxed max-w-md transition-colors">{desc}</p>
     </div>
 
     <div className="mt-8 pt-6 border-t border-silver/30 group-hover:border-black/10">
@@ -38,7 +38,6 @@ const MonoCard = ({ number, title, category, stack, desc }) => (
 );
 
 export default function DesignMono() {
-  // MARQUEE FIX: Repeat text 4 times to ensure it is WIDER than any screen
   const baseText = "FLUTTER DEVELOPMENT /// LARAVEL BACKEND /// CYBER SECURITY /// SQLITE /// FIREBASE /// PYTHON AUTOMATION /// ";
   const fullMarquee = baseText.repeat(4);
 
@@ -91,7 +90,7 @@ export default function DesignMono() {
                  Actively advancing into <span className="text-paper font-bold">Python Automation</span> for offensive security.
                </p>
 
-               {/* STATUS MONITOR - ADDED ISC2 CERT */}
+               {/* STATUS MONITOR */}
                <div className="font-mono text-sm border border-silver/30 p-6 bg-black/40 backdrop-blur-md w-full shadow-2xl cursor-default">
                   <div className="flex items-center gap-3 mb-5 border-b border-silver/20 pb-3">
                     <span className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"/>
@@ -99,7 +98,6 @@ export default function DesignMono() {
                   </div>
 
                   <div className="space-y-5 text-gray-300">
-                    {/* Item 1 */}
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 group transition-all duration-300">
                       <div className="flex gap-3">
                          <span className="text-gray-500 font-bold">&gt;&gt; PROJECT:</span>
@@ -108,7 +106,6 @@ export default function DesignMono() {
                       <span className="text-gray-500 text-xs border border-silver/40 px-2 py-1 bg-noir/50">[PYTHON/DJANGO]</span>
                     </div>
 
-                    {/* Item 2 - ISC2 ADDED HERE */}
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 group transition-all duration-300">
                       <div className="flex gap-3">
                          <span className="text-gray-500 font-bold">&gt;&gt; CERT:</span>
@@ -117,7 +114,6 @@ export default function DesignMono() {
                       <span className="text-gray-500 text-xs border border-silver/40 px-2 py-1 bg-noir/50">[ISC2]</span>
                     </div>
 
-                    {/* Item 3 */}
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 group transition-all duration-300">
                       <div className="flex gap-3">
                          <span className="text-gray-500 font-bold">&gt;&gt; CERT:</span>
@@ -151,9 +147,8 @@ export default function DesignMono() {
 
       {/* PROJECTS & EXPERIENCE GRID */}
       <main className="border-b border-silver" id="work">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-silver gap-[1px]">
+        <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-3 bg-silver gap-[1px]">
           
-          {/* PROJECT 1 */}
           <MonoCard 
             number="001" 
             title="Elderly Companion" 
@@ -162,7 +157,6 @@ export default function DesignMono() {
             stack={['Flutter', 'SQLite', 'Firebase', 'Razorpay']} 
           />
           
-          {/* PROJECT 2 */}
           <MonoCard 
             number="002" 
             title="FitTrack" 
@@ -171,7 +165,6 @@ export default function DesignMono() {
             stack={['PHP', 'Bootstrap', 'JS', 'MySQL']} 
           />
           
-          {/* PROJECT 3 */}
           <MonoCard 
             number="003" 
             title="Campus Halls" 
@@ -181,7 +174,7 @@ export default function DesignMono() {
           />
 
            {/* EXPERIENCE LOG */}
-           <div className="md:col-span-2 lg:col-span-1 bg-noir p-8 border-b border-r border-silver flex flex-col justify-between group hover:bg-paper transition-colors duration-300" id="about">
+           <div className="min-w-[85vw] md:min-w-0 flex-shrink-0 snap-center md:col-span-2 lg:col-span-1 bg-noir p-8 border-b border-r border-silver flex flex-col justify-between group hover:bg-paper transition-colors duration-300" id="about">
              <h3 className="font-mono text-xs text-gray-500 mb-6 uppercase tracking-widest group-hover:text-black transition-colors">Career Log</h3>
              
              <div className="space-y-8">
@@ -210,7 +203,6 @@ export default function DesignMono() {
              </div>
            </div>
 
-           {/* TECH ARSENAL */}
            <MonoCard 
             number="004" 
             title="Tech Arsenal" 
@@ -219,7 +211,6 @@ export default function DesignMono() {
             stack={['Flutter', 'Dart', 'Python', 'Django', 'Linux', 'Shell', 'Java', 'PHP', 'JS', 'MySQL', 'Firebase', 'Git']} 
            />
 
-           {/* LEAD PROTOCOL */}
            <MonoCard 
             number="005" 
             title="Lead Protocol" 
