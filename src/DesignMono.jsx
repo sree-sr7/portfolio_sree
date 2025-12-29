@@ -15,8 +15,9 @@ const LinkedInIcon = () => (
 );
 
 // Reusable Project Card
+// CHANGED: Removed mobile sizing classes (min-w, snap-center, etc.)
 const MonoCard = ({ number, title, category, stack, desc }) => (
-  <div className="group relative bg-noir hover:bg-paper transition-colors duration-300 h-full flex flex-col justify-between p-8 cursor-pointer min-w-[85vw] md:min-w-0 flex-shrink-0 snap-center border-b border-r border-silver">
+  <div className="group relative bg-noir hover:bg-paper transition-colors duration-300 h-full flex flex-col justify-between p-8 cursor-pointer border-b border-r border-silver">
     <div className="flex justify-between items-start w-full mb-6">
       <span className="font-mono text-xs text-gray-500 group-hover:text-black transition-colors">{number}</span>
       <span className="font-mono text-xs border border-silver px-2 py-1 rounded-full text-gray-400 group-hover:border-black group-hover:text-black transition-colors uppercase">{category}</span>
@@ -146,8 +147,9 @@ export default function DesignMono() {
       </div>
 
       {/* PROJECTS & EXPERIENCE GRID */}
+      {/* CHANGED: Switched to Grid for all sizes (1 column on mobile, 2 on tablet, 3 on desktop) */}
       <main className="border-b border-silver" id="work">
-        <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-3 bg-silver gap-[1px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-silver gap-[1px]">
           
           <MonoCard 
             number="001" 
@@ -174,7 +176,8 @@ export default function DesignMono() {
           />
 
            {/* EXPERIENCE LOG */}
-           <div className="min-w-[85vw] md:min-w-0 flex-shrink-0 snap-center md:col-span-2 lg:col-span-1 bg-noir p-8 border-b border-r border-silver flex flex-col justify-between group hover:bg-paper transition-colors duration-300" id="about">
+           {/* CHANGED: Removed mobile scroll classes */}
+           <div className="md:col-span-2 lg:col-span-1 bg-noir p-8 border-b border-r border-silver flex flex-col justify-between group hover:bg-paper transition-colors duration-300" id="about">
              <h3 className="font-mono text-xs text-gray-500 mb-6 uppercase tracking-widest group-hover:text-black transition-colors">Career Log</h3>
              
              <div className="space-y-8">
