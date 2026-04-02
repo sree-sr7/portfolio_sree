@@ -63,7 +63,7 @@ export default function DesignMono() {
               download="Sreeraj_Sreekumar_Resume.pdf"
               className="text-xs font-mono font-bold tracking-widest uppercase px-4 py-2 border border-silver hover:bg-paper hover:text-noir transition-all duration-300"
             >
-              [ DOWNLOAD CV ]
+              [ DOWNLOAD RESUME ]
             </a>
           </div>
         </div>
