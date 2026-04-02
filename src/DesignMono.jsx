@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import BlueprintPhoto from './BlueprintPhoto';
 
-// --- ICONS FOR FOOTER ---
+// --- ICONS FOR FOOTER & CONTROLS ---
 const GitHubIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
@@ -14,10 +14,21 @@ const LinkedInIcon = () => (
   </svg>
 );
 
+const ArrowRightIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-6 h-6 stroke-2">
+    <path strokeLinecap="square" strokeLinejoin="miter" d="M5 12h14M12 5l7 7-7 7" />
+  </svg>
+);
+
+const ArrowLeftIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-6 h-6 stroke-2">
+    <path strokeLinecap="square" strokeLinejoin="miter" d="M19 12H5M12 19l-7-7 7-7" />
+  </svg>
+);
+
 // Reusable Project Card
-// CHANGED: Removed mobile sizing classes (min-w, snap-center, etc.)
-const MonoCard = ({ number, title, category, stack, desc }) => (
-  <div className="group relative bg-noir hover:bg-paper transition-colors duration-300 h-full flex flex-col justify-between p-8 cursor-pointer border-b border-r border-silver">
+const MonoCard = ({ number, title, category, stack, desc, extraClasses = "" }) => (
+  <div className={`group relative bg-noir hover:bg-paper transition-colors duration-300 flex flex-col justify-between p-8 cursor-pointer ${extraClasses}`}>
     <div className="flex justify-between items-start w-full mb-6">
       <span className="font-mono text-xs text-gray-500 group-hover:text-black transition-colors">{number}</span>
       <span className="font-mono text-xs border border-silver px-2 py-1 rounded-full text-gray-400 group-hover:border-black group-hover:text-black transition-colors uppercase">{category}</span>
@@ -41,11 +52,44 @@ const MonoCard = ({ number, title, category, stack, desc }) => (
 export default function DesignMono() {
   const baseText = "FLUTTER DEVELOPMENT /// LARAVEL BACKEND /// CYBER SECURITY /// SQLITE /// FIREBASE /// PYTHON AUTOMATION /// ";
   const fullMarquee = baseText.repeat(4);
+  
+  // SCROLL LOGIC & STATE
+  const scrollRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScrollState = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      // Use a 1px buffer for rounding errors on high-DPI screens
+      setCanScrollLeft(scrollLeft > 1);
+      setCanScrollRight(Math.ceil(scrollLeft + clientWidth) < scrollWidth - 1);
+    }
+  };
+
+  useEffect(() => {
+    checkScrollState();
+    window.addEventListener('resize', checkScrollState);
+    return () => window.removeEventListener('resize', checkScrollState);
+  }, []);
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const containerWidth = scrollRef.current.clientWidth;
+      const cardsVisible = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
+      const scrollAmount = containerWidth / cardsVisible;
+      
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-noir text-paper font-sans selection:bg-paper selection:text-noir overflow-x-hidden">
+    <div className="min-h-screen bg-noir text-paper font-sans selection:bg-paper selection:text-noir overflow-x-hidden relative">
       
-      <div className="fixed inset-0 bg-[size:50px_50px] bg-grid-pattern opacity-[0.15] pointer-events-none" />
+      <div className="fixed inset-0 bg-[size:50px_50px] bg-grid-pattern opacity-[0.15] pointer-events-none z-0" />
 
       {/* NAVBAR */}
       <nav className="fixed top-0 left-0 w-full z-50 border-b border-silver bg-noir/80 backdrop-blur-sm">
@@ -61,7 +105,7 @@ export default function DesignMono() {
             <a 
               href="/resume.pdf" 
               download="Sreeraj_Sreekumar_Resume.pdf"
-              className="text-xs font-mono font-bold tracking-widest uppercase px-4 py-2 border border-silver hover:bg-paper hover:text-noir transition-all duration-300"
+              className="text-xs font-mono font-bold tracking-widest uppercase px-4 py-2 border border-silver hover:bg-paper hover:text-noir transition-all duration-300 relative z-10"
             >
               [ DOWNLOAD RESUME ]
             </a>
@@ -78,13 +122,13 @@ export default function DesignMono() {
               SYSTEM_STATUS: ONLINE // ROLE: SECURITY_ARCHITECT
             </p>
             
-            <h1 className="text-[14vw] lg:text-[11vw] leading-[0.8] font-black tracking-tighter mix-blend-difference mb-8 break-words">
+            <h1 className="text-[14vw] lg:text-[11vw] leading-[0.8] font-black tracking-tighter mix-blend-difference mb-8 break-words relative z-10">
               SECURITY<br/>
               SOFTWARE<br/>
               ENGINEER
             </h1>
 
-            <div className="flex flex-col gap-10 max-w-2xl">
+            <div className="flex flex-col gap-10 max-w-2xl relative z-10">
                <p className="text-xl text-gray-400 leading-snug">
                  Leveraging <span className="text-paper font-bold">Full Stack</span> architecture knowledge to audit, protect, and recover digital assets. 
                  Pivoting from development to <span className="text-paper font-bold">Vulnerability Assessment</span> and <span className="text-paper font-bold">Network Defense</span>. 
@@ -127,7 +171,7 @@ export default function DesignMono() {
             </div>
           </div>
 
-          <div className="h-[500px] w-full lg:w-[500px] relative flex-shrink-0 border-l border-silver bg-noir/50 backdrop-blur-sm mt-12 lg:mt-0">
+          <div className="h-[500px] w-full lg:w-[500px] relative flex-shrink-0 border-l border-silver bg-noir/50 backdrop-blur-sm mt-12 lg:mt-0 z-10">
              <BlueprintPhoto />
           </div>
 
@@ -135,7 +179,7 @@ export default function DesignMono() {
       </header>
 
       {/* MARQUEE */}
-      <div className="border-b border-silver overflow-hidden py-3 bg-paper text-noir flex relative select-none">
+      <div className="border-b border-silver overflow-hidden py-3 bg-paper text-noir flex relative z-10 select-none">
          <div className="flex w-full overflow-hidden">
             <div className="animate-marquee whitespace-nowrap font-mono font-bold text-lg tracking-widest flex-shrink-0 px-4 will-change-transform">
                {fullMarquee}
@@ -146,37 +190,88 @@ export default function DesignMono() {
          </div>
       </div>
 
-      {/* PROJECTS & EXPERIENCE GRID */}
-      {/* CHANGED: Switched to Grid for all sizes (1 column on mobile, 2 on tablet, 3 on desktop) */}
-      <main className="border-b border-silver" id="work">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-silver gap-[1px]">
-          
-          <MonoCard 
-            number="001" 
-            title="Elderly Companion" 
-            category="Flutter App" 
-            desc="Offline-first reminder system for medications, stock expiry, and upcoming appointments. Features SOS location sharing and Razorpay integration." 
-            stack={['Flutter', 'SQLite', 'Firebase', 'Razorpay']} 
-          />
-          
-          <MonoCard 
-            number="002" 
-            title="FitTrack" 
-            category="Full Stack Web" 
-            desc="Dynamic workout generator and progress tracker. Generates routines based on user physique requirements." 
-            stack={['PHP', 'Bootstrap', 'JS', 'MySQL']} 
-          />
-          
-          <MonoCard 
-            number="003" 
-            title="Campus Halls" 
-            category="Web System" 
-            desc="College venue reservation system. Managed conflicting schedules and approval workflows as Project Lead." 
-            stack={['Laravel', 'Tailwind', 'SQL']} 
-          />
+      {/* MAIN CONTAINER */}
+      <main className="bg-silver relative z-10" id="work">
+        
+        {/* TOP SECTION: PROJECTS CAROUSEL (Moving Cards) */}
+        <div className="relative w-full border-b border-silver group/slider bg-noir">
+           
+           {/* Left Arrow - Conditionally Rendered */}
+           {canScrollLeft && (
+             <button 
+               onClick={() => scroll('left')} 
+               className="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 bg-noir border border-silver rounded-full flex justify-center items-center text-paper hover:bg-paper hover:text-noir transition-all duration-300 z-30 shadow-2xl md:opacity-0 group-hover/slider:opacity-100"
+               aria-label="Previous project"
+             >
+               <ArrowLeftIcon />
+             </button>
+           )}
+           
+           {/* Right Arrow - Conditionally Rendered */}
+           {canScrollRight && (
+             <button 
+               onClick={() => scroll('right')} 
+               className="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 bg-noir border border-silver rounded-full flex justify-center items-center text-paper hover:bg-paper hover:text-noir transition-all duration-300 z-30 shadow-2xl md:opacity-0 group-hover/slider:opacity-100"
+               aria-label="Next project"
+             >
+               <ArrowRightIcon />
+             </button>
+           )}
 
-           {/* EXPERIENCE LOG */}
-           {/* CHANGED: Removed mobile scroll classes */}
+           <div 
+             ref={scrollRef}
+             onScroll={checkScrollState}
+             className="flex overflow-x-auto items-stretch snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+           >
+              <div className="flex-none w-full md:w-1/2 lg:w-1/3 snap-center sm:snap-start flex">
+                <MonoCard 
+                  extraClasses="w-full border-r border-silver"
+                  number="001" 
+                  title="Deepfake Detection" 
+                  category="AI / Security" 
+                  desc="Built a multimodal audio detection system using HuBERT and DistilBERT, achieving 91% accuracy on ASVspoof." 
+                  stack={['Python', 'HuBERT', 'DistilBERT', 'Machine Learning']} 
+                />
+              </div>
+
+              <div className="flex-none w-full md:w-1/2 lg:w-1/3 snap-center sm:snap-start flex">
+                <MonoCard 
+                  extraClasses="w-full border-r border-silver"
+                  number="002" 
+                  title="Elderly Companion" 
+                  category="Flutter App" 
+                  desc="Offline-first reminder system for medications, stock expiry, and upcoming appointments. Features SOS location sharing and Razorpay integration." 
+                  stack={['Flutter', 'SQLite', 'Firebase', 'Razorpay']} 
+                />
+              </div>
+
+              <div className="flex-none w-full md:w-1/2 lg:w-1/3 snap-center sm:snap-start flex">
+                <MonoCard 
+                  extraClasses="w-full border-r border-silver"
+                  number="003" 
+                  title="Resource Management" 
+                  category="Web System" 
+                  desc="College resource management system. Managed conflicting schedules and approval workflows as Project Lead." 
+                  stack={['Django', 'Tailwind', 'PostreSQL', 'React']} 
+                />
+              </div>
+
+              <div className="flex-none w-full md:w-1/2 lg:w-1/3 snap-center sm:snap-start flex">
+                <MonoCard 
+                  extraClasses="w-full border-r border-silver"
+                  number="004" 
+                  title="FitTrack" 
+                  category="Full Stack Web" 
+                  desc="Dynamic workout generator and progress tracker. Generates routines based on user physique requirements." 
+                  stack={['PHP', 'Bootstrap', 'JS', 'MySQL']} 
+                />
+              </div>
+           </div>
+        </div>
+
+        {/* BOTTOM SECTION: STATIC GRID (3 Cards Below) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-silver">
+           
            <div className="md:col-span-2 lg:col-span-1 bg-noir p-8 border-b border-r border-silver flex flex-col justify-between group hover:bg-paper transition-colors duration-300" id="about">
              <h3 className="font-mono text-xs text-gray-500 mb-6 uppercase tracking-widest group-hover:text-black transition-colors">Career Log</h3>
              
@@ -207,7 +302,8 @@ export default function DesignMono() {
            </div>
 
            <MonoCard 
-            number="004" 
+            extraClasses="border-b border-r border-silver h-full"
+            number="005" 
             title="Tech Arsenal" 
             category="Core Stack" 
             desc="My toolkit is a mix of builder and breaker. I specialize in Flutter for rapid mobile engineering, while relying on Python, Linux, and Shell scripting to handle the security and automation architecture."
@@ -215,7 +311,8 @@ export default function DesignMono() {
            />
 
            <MonoCard 
-            number="005" 
+            extraClasses="border-b border-silver h-full border-r md:border-r-0 lg:border-r"
+            number="006" 
             title="Lead Protocol" 
             category="Workflow" 
             desc="Leading teams is about momentum. I use Agile to keep development on track, Git to handle the inevitable merge conflicts, and clear sprint planning to ensure we actually deliver on time."
@@ -226,7 +323,7 @@ export default function DesignMono() {
       </main>
       
       {/* FOOTER */}
-      <footer className="py-20 px-6 border-b border-silver bg-noir" id="contact">
+      <footer className="py-20 px-6 border-b border-silver bg-noir relative z-10" id="contact">
         <div className="max-w-[1600px] mx-auto flex flex-col items-center justify-center text-center gap-12">
           
           <div>
