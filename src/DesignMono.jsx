@@ -192,9 +192,9 @@ export default function DesignMono() {
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 group transition-all duration-300">
                       <div className="flex gap-3">
                          <span className="text-gray-500 font-bold">&gt;&gt; PROJECT:</span>
-                         <span className="uppercase font-bold tracking-wide text-gray-200 group-hover:text-green-400 transition-colors duration-300">Intrusion_Detection_Sys</span>
+                         <span className="uppercase font-bold tracking-wide text-gray-200 group-hover:text-green-400 transition-colors duration-300">IC-VERIFIER</span>
                       </div>
-                      <span className="text-gray-500 text-xs border border-silver/40 px-2 py-1 bg-noir/50">[PYTHON/DJANGO]</span>
+                      <span className="text-gray-500 text-xs border border-silver/40 px-2 py-1 bg-noir/50">[PYTHON/ML]</span>
                     </div>
 
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 group transition-all duration-300">
@@ -203,6 +203,14 @@ export default function DesignMono() {
                          <span className="uppercase font-bold tracking-wide text-gray-200 group-hover:text-green-400 transition-colors duration-300">Certified_in_Cybersecurity</span>
                       </div>
                       <span className="text-gray-500 text-xs border border-silver/40 px-2 py-1 bg-noir/50">[ISC2]</span>
+                    </div>
+
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 group transition-all duration-300">
+                      <div className="flex gap-3">
+                         <span className="text-gray-500 font-bold">&gt;&gt; CERT:</span>
+                         <span className="uppercase font-bold tracking-wide text-gray-200 group-hover:text-green-400 transition-colors duration-300">Solutions_Architect</span>
+                      </div>
+                      <span className="text-gray-500 text-xs border border-silver/40 px-2 py-1 bg-noir/50">[AWS]</span>
                     </div>
 
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 group transition-all duration-300">
