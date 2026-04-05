@@ -27,27 +27,42 @@ const ArrowLeftIcon = () => (
 );
 
 // Reusable Project Card
-const MonoCard = ({ number, title, category, stack, desc, extraClasses = "" }) => (
-  <div className={`group relative bg-noir hover:bg-paper transition-colors duration-300 flex flex-col justify-between p-8 cursor-pointer ${extraClasses}`}>
-    <div className="flex justify-between items-start w-full mb-6">
-      <span className="font-mono text-xs text-gray-500 group-hover:text-black transition-colors">{number}</span>
-      <span className="font-mono text-xs border border-silver px-2 py-1 rounded-full text-gray-400 group-hover:border-black group-hover:text-black transition-colors uppercase">{category}</span>
-    </div>
-    
-    <div className="flex-grow flex flex-col justify-center">
-      <h3 className="text-3xl md:text-4xl font-bold text-paper mb-6 group-hover:text-noir transition-colors leading-tight">{title}</h3>
-      <p className="text-gray-400 group-hover:text-gray-800 text-sm md:text-base leading-relaxed max-w-md transition-colors">{desc}</p>
-    </div>
+const MonoCard = ({ number, title, category, stack, desc, extraClasses = "", repoLink, isPrivate, onPrivateClick }) => {
+  const isClickable = !!repoLink || !!isPrivate;
 
-    <div className="mt-8 pt-6 border-t border-silver/30 group-hover:border-black/10">
-      <div className="flex flex-wrap gap-x-4 gap-y-3">
-        {stack.map(tech => (
-          <span key={tech} className="text-sm font-mono text-gray-500 group-hover:text-black font-bold">[{tech}]</span>
-        ))}
+  const handleClick = () => {
+    if (isPrivate && onPrivateClick) {
+      onPrivateClick();
+    } else if (repoLink) {
+      window.open(repoLink, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  return (
+    <div 
+      onClick={isClickable ? handleClick : undefined}
+      className={`group relative bg-noir hover:bg-paper transition-colors duration-300 flex flex-col justify-between p-8 ${isClickable ? 'cursor-pointer' : ''} ${extraClasses}`}
+    >
+      <div className="flex justify-between items-start w-full mb-6">
+        <span className="font-mono text-xs text-gray-500 group-hover:text-black transition-colors">{number}</span>
+        <span className="font-mono text-xs border border-silver px-2 py-1 rounded-full text-gray-400 group-hover:border-black group-hover:text-black transition-colors uppercase">{category}</span>
+      </div>
+      
+      <div className="flex-grow flex flex-col justify-center">
+        <h3 className="text-3xl md:text-4xl font-bold text-paper mb-6 group-hover:text-noir transition-colors leading-tight">{title}</h3>
+        <p className="text-gray-400 group-hover:text-gray-800 text-sm md:text-base leading-relaxed max-w-md transition-colors">{desc}</p>
+      </div>
+
+      <div className="mt-8 pt-6 border-t border-silver/30 group-hover:border-black/10">
+        <div className="flex flex-wrap gap-x-4 gap-y-3">
+          {stack.map(tech => (
+            <span key={tech} className="text-sm font-mono text-gray-500 group-hover:text-black font-bold">[{tech}]</span>
+          ))}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default function DesignMono() {
   const baseText = "FLUTTER DEVELOPMENT /// LARAVEL BACKEND /// CYBER SECURITY /// SQLITE /// FIREBASE /// PYTHON AUTOMATION /// ";
@@ -57,6 +72,9 @@ export default function DesignMono() {
   const scrollRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  
+  // CUSTOM POPUP STATE
+  const [showPrivateAlert, setShowPrivateAlert] = useState(false);
 
   const checkScrollState = () => {
     if (scrollRef.current) {
@@ -91,6 +109,36 @@ export default function DesignMono() {
       
       <div className="fixed inset-0 bg-[size:50px_50px] bg-grid-pattern opacity-[0.15] pointer-events-none z-0" />
 
+      {/* SIMPLIFIED CARD-STYLE POPUP */}
+      {showPrivateAlert && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm">
+          <div className="group bg-noir hover:bg-paper transition-colors duration-300 border border-silver p-8 max-w-sm w-full shadow-2xl relative flex flex-col">
+            
+            <div className="flex justify-between items-start w-full mb-6">
+              <span className="font-mono text-xs text-gray-500 group-hover:text-black transition-colors">INFO</span>
+              <span className="font-mono text-xs border border-silver px-2 py-1 rounded-full text-gray-400 group-hover:border-black group-hover:text-black transition-colors uppercase">PRIVATE</span>
+            </div>
+            
+            <div className="flex-grow flex flex-col justify-center mb-8">
+              <h3 className="text-2xl md:text-3xl font-bold text-paper mb-4 group-hover:text-noir transition-colors leading-tight">Private Repo</h3>
+              <p className="text-gray-400 group-hover:text-gray-800 text-sm leading-relaxed transition-colors">
+                The source code for this project is currently private.
+              </p>
+            </div>
+            
+            <div className="pt-6 border-t border-silver/30 group-hover:border-black/10 flex justify-end">
+              <button 
+                onClick={() => setShowPrivateAlert(false)}
+                className="text-sm font-mono text-gray-500 group-hover:text-black font-bold hover:underline underline-offset-4 decoration-2"
+              >
+                [ CLOSE ]
+              </button>
+            </div>
+            
+          </div>
+        </div>
+      )}
+
       {/* NAVBAR */}
       <nav className="fixed top-0 left-0 w-full z-50 border-b border-silver bg-noir/80 backdrop-blur-sm">
         <div className="flex justify-between items-center px-6 h-16 max-w-[1600px] mx-auto">
@@ -119,20 +167,18 @@ export default function DesignMono() {
           
           <div className="relative z-20 flex-1 pt-4">
             <p className="font-mono text-xs text-gray-500 mb-4">
-              SYSTEM_STATUS: ONLINE // ROLE: SECURITY_ARCHITECT
+              SYSTEM_STATUS: ONLINE // ROLE: AI_SECURITY_ENGINEER
             </p>
             
             <h1 className="text-[14vw] lg:text-[11vw] leading-[0.8] font-black tracking-tighter mix-blend-difference mb-8 break-words relative z-10">
+              AI-DRIVEN<br/>
               SECURITY<br/>
-              SOFTWARE<br/>
               ENGINEER
             </h1>
 
             <div className="flex flex-col gap-10 max-w-2xl relative z-10">
                <p className="text-xl text-gray-400 leading-snug">
-                 Leveraging <span className="text-paper font-bold">Full Stack</span> architecture knowledge to audit, protect, and recover digital assets. 
-                 Pivoting from development to <span className="text-paper font-bold">Vulnerability Assessment</span> and <span className="text-paper font-bold">Network Defense</span>. 
-                 Actively advancing into <span className="text-paper font-bold">Python Automation</span> for offensive security.
+                 Specializing in <span className="text-paper font-bold">AI Security</span> and <span className="text-paper font-bold">Threat Defense</span> to secure machine learning pipelines and intelligent systems. Leveraging <span className="text-paper font-bold">Full Stack architecture</span> knowledge to build scalable, security-focused applications. Pursuing <span className="text-paper font-bold">AWS Solutions Architect</span> and <span className="text-paper font-bold">ISC2 CC</span> certifications to formalize expertise in cloud and cybersecurity domains.
                </p>
 
                {/* STATUS MONITOR */}
@@ -230,7 +276,8 @@ export default function DesignMono() {
                   title="Deepfake Detection" 
                   category="AI / Security" 
                   desc="Built a multimodal audio detection system using HuBERT and DistilBERT, achieving 91% accuracy on ASVspoof." 
-                  stack={['Python', 'HuBERT', 'DistilBERT', 'Machine Learning']} 
+                  stack={['Python', 'HuBERT', 'DistilBERT', 'Machine Learning']}
+                  repoLink="https://github.com/sree-sr7/multimodal-deepfake-detection"
                 />
               </div>
 
@@ -242,6 +289,8 @@ export default function DesignMono() {
                   category="Flutter App" 
                   desc="Offline-first reminder system for medications, stock expiry, and upcoming appointments. Features SOS location sharing and Razorpay integration." 
                   stack={['Flutter', 'SQLite', 'Firebase', 'Razorpay']} 
+                  isPrivate={true}
+                  onPrivateClick={() => setShowPrivateAlert(true)}
                 />
               </div>
 
@@ -253,6 +302,7 @@ export default function DesignMono() {
                   category="Web System" 
                   desc="College resource management system. Managed conflicting schedules and approval workflows as Project Lead." 
                   stack={['Django', 'Tailwind', 'PostreSQL', 'React']} 
+                  repoLink="https://github.com/Merlin26022004/Rajagiri_Hall_Booking_System"
                 />
               </div>
 
@@ -264,6 +314,7 @@ export default function DesignMono() {
                   category="Full Stack Web" 
                   desc="Dynamic workout generator and progress tracker. Generates routines based on user physique requirements." 
                   stack={['PHP', 'Bootstrap', 'JS', 'MySQL']} 
+                  repoLink="https://github.com/sree-sr7/fitness-assistant"
                 />
               </div>
            </div>
