@@ -178,7 +178,7 @@ export default function DesignMono() {
 
             <div className="flex flex-col gap-10 max-w-2xl relative z-10">
                <p className="text-xl text-gray-400 leading-snug">
-                 Full stack engineer specializing in <span className="text-paper font-bold">Django REST APIs</span> and <span className="text-paper font-bold">React</span>. Currently leading a 5-engineer team at RLabZ, taking a campus resource management ERP from initial architecture to near-complete deployment. Also comfortable working across <span className="text-paper font-bold">Flutter</span> and <span className="text-paper font-bold">AI-driven systems</span> — from mobile apps to a deepfake detection pipeline — as the work demands.
+                 Full stack engineer specializing in <span className="text-paper font-bold">Django REST APIs</span> and <span className="text-paper font-bold">React</span>. Currently leading a 5-engineer team at RLabZ, taking a campus resource management ERP from initial architecture to near-complete deployment. Also comfortable working across <span className="text-paper font-bold">Flutter</span> and <span className="text-paper font-bold">AI-driven systems</span> - from mobile apps to a deepfake detection pipeline - as the work demands.
                </p>
 
                {/* STATUS MONITOR */}
@@ -265,9 +265,9 @@ export default function DesignMono() {
                 <MonoCard 
                   extraClasses="w-full border-r border-silver"
                   number="001" 
-                  title="RCSS — Campus ERP" 
+                  title="RCSS - Campus ERP" 
                   category="ERP System" 
-                  desc="Campus-wide ERP automating booking for halls, transport, open areas, mess catering for events, and the media team — replacing the college's manual paperwork process. Led as Project Lead; backend and frontend both optimized for production load." 
+                  desc="Campus-wide ERP automating booking for halls, transport, open areas, mess catering for events, and the media team - replacing the college's manual paperwork process. Led as Project Lead; backend and frontend both optimized for production load." 
                   stack={['Django', 'DRF', 'React', 'Vite', 'PostgreSQL', 'Redis', 'Celery']} 
                   repoLink="https://github.com/ebinlouis/rcss-resource-booking"
                 />
