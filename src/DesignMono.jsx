@@ -65,7 +65,7 @@ const MonoCard = ({ number, title, category, stack, desc, extraClasses = "", rep
 };
 
 export default function DesignMono() {
-  const baseText = "FLUTTER DEVELOPMENT /// LARAVEL BACKEND /// CYBER SECURITY /// SQLITE /// FIREBASE /// PYTHON AUTOMATION /// ";
+  const baseText = "DJANGO & REACT /// VITE /// REDIS & CELERY /// FLUTTER DEVELOPMENT /// CYBER SECURITY /// POSTGRESQL /// SQLITE /// FIREBASE /// PYTHON AUTOMATION /// ";
   const fullMarquee = baseText.repeat(4);
   
   // SCROLL LOGIC & STATE
@@ -167,18 +167,18 @@ export default function DesignMono() {
           
           <div className="relative z-20 flex-1 pt-4">
             <p className="font-mono text-xs text-gray-500 mb-4">
-              SYSTEM_STATUS: ONLINE // ROLE: AI_SECURITY_ENGINEER
+              SYSTEM_STATUS: ONLINE // ROLE: FULL_STACK_ENGINEER
             </p>
             
             <h1 className="text-[14vw] lg:text-[11vw] leading-[0.8] font-black tracking-tighter mix-blend-difference mb-8 break-words relative z-10">
-              AI-DRIVEN<br/>
-              SECURITY<br/>
+              SOFTWARE<br/>
+              SYSTEMS<br/>
               ENGINEER
             </h1>
 
             <div className="flex flex-col gap-10 max-w-2xl relative z-10">
                <p className="text-xl text-gray-400 leading-snug">
-                 Specializing in <span className="text-paper font-bold">AI Security</span> and <span className="text-paper font-bold">Threat Defense</span> to secure machine learning pipelines and intelligent systems. Leveraging <span className="text-paper font-bold">Full Stack architecture</span> knowledge to build scalable, security-focused applications. Pursuing <span className="text-paper font-bold">AWS Solutions Architect</span> and <span className="text-paper font-bold">ISC2 CC</span> certifications to formalize expertise in cloud and cybersecurity domains.
+                 Full stack engineer specializing in <span className="text-paper font-bold">Django REST APIs</span> and <span className="text-paper font-bold">React</span>. Currently leading a 5-engineer team at RLabZ, taking a campus resource management ERP from initial architecture to near-complete deployment. Also comfortable working across <span className="text-paper font-bold">Flutter</span> and <span className="text-paper font-bold">AI-driven systems</span> — from mobile apps to a deepfake detection pipeline — as the work demands.
                </p>
 
                {/* STATUS MONITOR */}
@@ -281,6 +281,18 @@ export default function DesignMono() {
                 <MonoCard 
                   extraClasses="w-full border-r border-silver"
                   number="001" 
+                  title="RCSS — Campus ERP" 
+                  category="ERP System" 
+                  desc="Campus-wide ERP automating booking for halls, transport, open areas, mess catering for events, and the media team — replacing the college's manual paperwork process. Led as Project Lead; backend and frontend both optimized for production load." 
+                  stack={['Django', 'DRF', 'React', 'Vite', 'PostgreSQL', 'Redis', 'Celery']} 
+                  repoLink="https://github.com/ebinlouis/rcss-resource-booking"
+                />
+              </div>
+
+              <div className="flex-none w-full md:w-1/2 lg:w-1/3 snap-center sm:snap-start flex">
+                <MonoCard 
+                  extraClasses="w-full border-r border-silver"
+                  number="002" 
                   title="Deepfake Detection" 
                   category="AI / Security" 
                   desc="Built a multimodal audio detection system using HuBERT and DistilBERT, achieving 91% accuracy on ASVspoof." 
@@ -292,25 +304,13 @@ export default function DesignMono() {
               <div className="flex-none w-full md:w-1/2 lg:w-1/3 snap-center sm:snap-start flex">
                 <MonoCard 
                   extraClasses="w-full border-r border-silver"
-                  number="002" 
+                  number="003" 
                   title="Elderly Companion" 
                   category="Flutter App" 
                   desc="Offline-first reminder system for medications, stock expiry, and upcoming appointments. Features SOS location sharing and Razorpay integration." 
                   stack={['Flutter', 'SQLite', 'Firebase', 'Razorpay']} 
                   isPrivate={true}
                   onPrivateClick={() => setShowPrivateAlert(true)}
-                />
-              </div>
-
-              <div className="flex-none w-full md:w-1/2 lg:w-1/3 snap-center sm:snap-start flex">
-                <MonoCard 
-                  extraClasses="w-full border-r border-silver"
-                  number="003" 
-                  title="Resource Management" 
-                  category="Web System" 
-                  desc="College resource management system. Managed conflicting schedules and approval workflows as Project Lead." 
-                  stack={['Django', 'Tailwind', 'PostreSQL', 'React']} 
-                  repoLink="https://github.com/Merlin26022004/Rajagiri_Hall_Booking_System"
                 />
               </div>
 
@@ -366,7 +366,7 @@ export default function DesignMono() {
             title="Tech Arsenal" 
             category="Core Stack" 
             desc="My toolkit is a mix of builder and breaker. I specialize in Flutter for rapid mobile engineering, while relying on Python, Linux, and Shell scripting to handle the security and automation architecture."
-            stack={['Flutter', 'Dart', 'Python', 'Django', 'Linux', 'Shell', 'Java', 'PHP', 'JS', 'MySQL', 'Firebase', 'Git']} 
+            stack={['Flutter', 'Dart', 'Python', 'Django', 'PostgreSQL', 'Redis', 'Celery', 'Linux', 'Shell', 'Java', 'PHP', 'JS', 'MySQL', 'Firebase', 'Git']} 
            />
 
            <MonoCard 
