@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import BlueprintPhoto from './BlueprintPhoto';
+import ProjectModal from './ProjectModal';
 
 // --- ICONS FOR FOOTER & CONTROLS ---
 const GitHubIcon = () => (
@@ -26,22 +27,96 @@ const ArrowLeftIcon = () => (
   </svg>
 );
 
+// --- PROJECT DATA ---
+const projects = [
+  {
+    number: '001',
+    title: 'RCSS - Campus ERP',
+    category: 'ERP System',
+    desc: 'Campus-wide ERP automating booking for halls, transport, open areas, mess catering for events, and the media team - replacing the college\'s manual paperwork process. Led as Project Lead; backend and frontend both optimized for production load.',
+    stack: ['Django', 'DRF', 'React', 'Vite', 'PostgreSQL', 'Redis', 'Celery'],
+    repoLink: 'https://github.com/ebinlouis/rcss-resource-booking',
+    isPrivate: false,
+    // --- NEW FIELDS ---
+    longDescription:
+      'RCSS Campus ERP started as a single hall-booking form and grew into the college\'s central resource management system \u2014 covering hall bookings, transport requests, open-area reservations, mess catering for events, and equipment/media loadouts for the AV team. ' +
+      'Led a 5-engineer team through a full RBAC rebuild (moving off a legacy single-role model to many-to-many roles with per-space approver chains), a Celery + Redis notification pipeline built from scratch with one-click email approvals, and a space-suggestion engine with tiered capacity fallback. ' +
+      'Query-level and caching fixes cut latency on key endpoints by roughly 50\u201375%, and row-level locking (select_for_update) closes the double-booking race condition that comes with concurrent requests on shared resources. ' +
+      'Currently in late-stage deployment ahead of full campus rollout.',
+    media: [
+      { type: 'image', src: '/media/placeholder.png', alt: 'RCSS - Campus ERP screenshot' },
+    ],
+    repoUrl: 'https://github.com/ebinlouis/rcss-resource-booking',
+    repoVisibility: 'public',
+    demoUrl: null,
+  },
+  {
+    number: '002',
+    title: 'Deepfake Detection',
+    category: 'AI / Security',
+    desc: 'Built a multimodal audio detection system using HuBERT and DistilBERT, achieving 91% accuracy on ASVspoof.',
+    stack: ['Python', 'HuBERT', 'DistilBERT', 'Machine Learning'],
+    repoLink: 'https://github.com/sree-sr7/multimodal-deepfake-detection',
+    isPrivate: false,
+    // --- NEW FIELDS ---
+    longDescription:
+      'A multimodal pipeline for detecting AI-generated speech, combining HuBERT for raw waveform representation with transformer-based text features to catch both acoustic artifacts and linguistic inconsistencies that single-modality detectors miss. ' +
+      'Evaluated on ASVspoof, with particular focus on generalization to synthesis methods unseen during training \u2014 a harder and more realistic test of whether a detector actually generalizes versus memorizing known attack signatures.',
+    media: [
+      { type: 'image', src: '/media/placeholder.png', alt: 'Deepfake Detection screenshot' },
+    ],
+    repoUrl: 'https://github.com/sree-sr7/multimodal-deepfake-detection',
+    repoVisibility: 'public',
+    demoUrl: null,
+  },
+  {
+    number: '003',
+    title: 'Elderly Companion',
+    category: 'Flutter App',
+    desc: 'Offline-first reminder system for medications, stock expiry, and upcoming appointments. Features SOS location sharing and Razorpay integration.',
+    stack: ['Flutter', 'SQLite', 'Firebase', 'Razorpay'],
+    repoLink: null,
+    isPrivate: true,
+    // --- NEW FIELDS ---
+    longDescription:
+      'An offline-first Flutter app built for elderly users and their caregivers \u2014 medication reminders, stock-expiry tracking, and upcoming appointments, all working without depending on constant connectivity. ' +
+      'One-tap SOS with live location sharing handles emergencies, and Razorpay integration covers in-app payments for medicine or service orders. ' +
+      'Local-first storage (SQLite) with Firebase sync means core reminders keep working even with spotty signal \u2014 a real constraint for the people this was built for, not just an architecture choice for its own sake.',
+    media: [
+      { type: 'image', src: '/media/placeholder.png', alt: 'Elderly Companion screenshot' },
+    ],
+    repoUrl: null,
+    repoVisibility: 'private',
+    demoUrl: null,
+  },
+  {
+    number: '004',
+    title: 'FitTrack',
+    category: 'Full Stack Web',
+    desc: 'Dynamic workout generator and progress tracker. Generates routines based on user physique requirements.',
+    stack: ['PHP', 'Bootstrap', 'JS', 'MySQL'],
+    repoLink: 'https://github.com/sree-sr7/fitness-assistant',
+    isPrivate: false,
+    // --- NEW FIELDS ---
+    longDescription:
+      'A full-stack workout generator and progress tracking application that creates personalized exercise routines based on user physique and fitness goals. ' +
+      'Users can log workouts, track progress over time, and receive dynamically adjusted routines. ' +
+      'Built with a PHP backend, MySQL database, and a responsive Bootstrap frontend.',
+    media: [
+      { type: 'image', src: '/media/placeholder.png', alt: 'FitTrack screenshot' },
+    ],
+    repoUrl: 'https://github.com/sree-sr7/fitness-assistant',
+    repoVisibility: 'public',
+    demoUrl: null,
+  },
+];
+
 // Reusable Project Card
-const MonoCard = ({ number, title, category, stack, desc, extraClasses = "", repoLink, isPrivate, onPrivateClick }) => {
-  const isClickable = !!repoLink || !!isPrivate;
-
-  const handleClick = () => {
-    if (isPrivate && onPrivateClick) {
-      onPrivateClick();
-    } else if (repoLink) {
-      window.open(repoLink, '_blank', 'noopener,noreferrer');
-    }
-  };
-
+const MonoCard = ({ number, title, category, stack, desc, extraClasses = "", onClick }) => {
   return (
     <div 
-      onClick={isClickable ? handleClick : undefined}
-      className={`group relative bg-noir hover:bg-paper transition-colors duration-300 flex flex-col justify-between p-8 ${isClickable ? 'cursor-pointer' : ''} ${extraClasses}`}
+      onClick={onClick}
+      className={`group relative bg-noir hover:bg-paper transition-colors duration-300 flex flex-col justify-between p-8 cursor-pointer ${extraClasses}`}
     >
       <div className="flex justify-between items-start w-full mb-6">
         <span className="font-mono text-xs text-gray-500 group-hover:text-black transition-colors">{number}</span>
@@ -73,8 +148,19 @@ export default function DesignMono() {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   
-  // CUSTOM POPUP STATE
-  const [showPrivateAlert, setShowPrivateAlert] = useState(false);
+  // PROJECT MODAL STATE
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openProjectModal = (project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const closeProjectModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+  };
 
   const checkScrollState = () => {
     if (scrollRef.current) {
@@ -109,35 +195,8 @@ export default function DesignMono() {
       
       <div className="fixed inset-0 bg-[size:50px_50px] bg-grid-pattern opacity-[0.15] pointer-events-none z-0" />
 
-      {/* SIMPLIFIED CARD-STYLE POPUP */}
-      {showPrivateAlert && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm">
-          <div className="group bg-noir hover:bg-paper transition-colors duration-300 border border-silver p-8 max-w-sm w-full shadow-2xl relative flex flex-col">
-            
-            <div className="flex justify-between items-start w-full mb-6">
-              <span className="font-mono text-xs text-gray-500 group-hover:text-black transition-colors">INFO</span>
-              <span className="font-mono text-xs border border-silver px-2 py-1 rounded-full text-gray-400 group-hover:border-black group-hover:text-black transition-colors uppercase">PRIVATE</span>
-            </div>
-            
-            <div className="flex-grow flex flex-col justify-center mb-8">
-              <h3 className="text-2xl md:text-3xl font-bold text-paper mb-4 group-hover:text-noir transition-colors leading-tight">Private Repo</h3>
-              <p className="text-gray-400 group-hover:text-gray-800 text-sm leading-relaxed transition-colors">
-                The source code for this project is currently private.
-              </p>
-            </div>
-            
-            <div className="pt-6 border-t border-silver/30 group-hover:border-black/10 flex justify-end">
-              <button 
-                onClick={() => setShowPrivateAlert(false)}
-                className="text-sm font-mono text-gray-500 group-hover:text-black font-bold hover:underline underline-offset-4 decoration-2"
-              >
-                [ CLOSE ]
-              </button>
-            </div>
-            
-          </div>
-        </div>
-      )}
+      {/* PROJECT DETAIL MODAL */}
+      <ProjectModal project={selectedProject} isOpen={isModalOpen} onClose={closeProjectModal} />
 
       {/* NAVBAR */}
       <nav className="fixed top-0 left-0 w-full z-50 border-b border-silver bg-noir/80 backdrop-blur-sm">
@@ -261,54 +320,19 @@ export default function DesignMono() {
              onScroll={checkScrollState}
              className="flex overflow-x-auto items-stretch snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
            >
-              <div className="flex-none w-full md:w-1/2 lg:w-1/3 snap-center sm:snap-start flex">
-                <MonoCard 
-                  extraClasses="w-full border-r border-silver"
-                  number="001" 
-                  title="RCSS - Campus ERP" 
-                  category="ERP System" 
-                  desc="Campus-wide ERP automating booking for halls, transport, open areas, mess catering for events, and the media team - replacing the college's manual paperwork process. Led as Project Lead; backend and frontend both optimized for production load." 
-                  stack={['Django', 'DRF', 'React', 'Vite', 'PostgreSQL', 'Redis', 'Celery']} 
-                  repoLink="https://github.com/ebinlouis/rcss-resource-booking"
-                />
-              </div>
-
-              <div className="flex-none w-full md:w-1/2 lg:w-1/3 snap-center sm:snap-start flex">
-                <MonoCard 
-                  extraClasses="w-full border-r border-silver"
-                  number="002" 
-                  title="Deepfake Detection" 
-                  category="AI / Security" 
-                  desc="Built a multimodal audio detection system using HuBERT and DistilBERT, achieving 91% accuracy on ASVspoof." 
-                  stack={['Python', 'HuBERT', 'DistilBERT', 'Machine Learning']}
-                  repoLink="https://github.com/sree-sr7/multimodal-deepfake-detection"
-                />
-              </div>
-
-              <div className="flex-none w-full md:w-1/2 lg:w-1/3 snap-center sm:snap-start flex">
-                <MonoCard 
-                  extraClasses="w-full border-r border-silver"
-                  number="003" 
-                  title="Elderly Companion" 
-                  category="Flutter App" 
-                  desc="Offline-first reminder system for medications, stock expiry, and upcoming appointments. Features SOS location sharing and Razorpay integration." 
-                  stack={['Flutter', 'SQLite', 'Firebase', 'Razorpay']} 
-                  isPrivate={true}
-                  onPrivateClick={() => setShowPrivateAlert(true)}
-                />
-              </div>
-
-              <div className="flex-none w-full md:w-1/2 lg:w-1/3 snap-center sm:snap-start flex">
-                <MonoCard 
-                  extraClasses="w-full border-r border-silver"
-                  number="004" 
-                  title="FitTrack" 
-                  category="Full Stack Web" 
-                  desc="Dynamic workout generator and progress tracker. Generates routines based on user physique requirements." 
-                  stack={['PHP', 'Bootstrap', 'JS', 'MySQL']} 
-                  repoLink="https://github.com/sree-sr7/fitness-assistant"
-                />
-              </div>
+             {projects.map((project) => (
+               <div key={project.number} className="flex-none w-full md:w-1/2 lg:w-1/3 snap-center sm:snap-start flex">
+                 <MonoCard 
+                   extraClasses="w-full border-r border-silver"
+                   number={project.number}
+                   title={project.title}
+                   category={project.category}
+                   desc={project.desc}
+                   stack={project.stack}
+                   onClick={() => openProjectModal(project)}
+                 />
+               </div>
+             ))}
            </div>
         </div>
 
