@@ -44,7 +44,15 @@ const projects = [
       'Query-level and caching fixes cut latency on key endpoints by roughly 50\u201375%, and row-level locking (select_for_update) closes the double-booking race condition that comes with concurrent requests on shared resources. ' +
       'Currently in late-stage deployment ahead of full campus rollout.',
     media: [
-      { type: 'image', src: '/media/placeholder.png', alt: 'RCSS - Campus ERP screenshot' },
+      { type: 'image', src: '/projects/rcss-venue.webp', alt: 'RCSS venue browsing with real hall listings and capacity' },
+      { type: 'image', src: '/projects/rcss-admin.webp', alt: 'RCSS admin portal showing booking approval queue' },
+      { type: 'image', src: '/projects/rcss-availability.webp', alt: 'RCSS venue availability calendar with time slot booking' },
+      { type: 'image', src: '/projects/rcss-home.webp', alt: 'RCSS user dashboard with booking activity history' },
+      { type: 'image', src: '/projects/rcss-transport.webp', alt: 'RCSS transport booking module' },
+      { type: 'image', src: '/projects/rcss-media.webp', alt: 'RCSS media booking availability view' },
+      { type: 'image', src: '/projects/rcss-media-form.webp', alt: 'RCSS media equipment booking request form' },
+      { type: 'image', src: '/projects/rcss-mess-admin.webp', alt: 'RCSS mess admin approving a catering request' },
+      { type: 'image', src: '/projects/rcss-mess-approved.webp', alt: 'RCSS approved mess booking with attendee headcount' },
     ],
     repoUrl: 'https://github.com/ebinlouis/rcss-resource-booking',
     repoVisibility: 'public',
