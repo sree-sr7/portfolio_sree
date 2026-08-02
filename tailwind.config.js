@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'sans': ['"Plus Jakarta Sans"', '"Plus Jakarta Sans Fallback"', 'sans-serif'],
         'mono': ['"JetBrains Mono"', 'monospace'], 
       },
       colors: {

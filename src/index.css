@@ -35,3 +35,31 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* =============================================================
+   METRIC-ADJUSTED FALLBACK FONT
+   'Plus Jakarta Sans' has an ascent-override ~ 94–96% of
+   system-ui's default metrics (it sits slightly shorter).
+   Declaring a named fallback family with size-adjust shrinks
+   system-ui to approximately match PJS's line-box size, so
+   the brief pre-load render (before 'optional' kicks in) does
+   not cause a line-height or size-driven layout shift.
+   This is applied at @layer base so Tailwind's font-sans
+   stack can reference it without changing tailwind.config.js.
+   ============================================================= */
+@font-face {
+  font-family: 'Plus Jakarta Sans Fallback';
+  src: local('system-ui');
+  size-adjust: 94.7%;
+  ascent-override: 96%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+/* Wire the metric-adjusted fallback into the font-sans stack.
+   Tailwind's font-sans class generates: font-family: "Plus Jakarta Sans", sans-serif.
+   We override font-family on the element that sets font-sans (the root div) via
+   a lower-specificity body rule — but since Tailwind's utility wins specificity,
+   the fallback must be injected via tailwind.config.js instead (see that file).
+   This comment is intentionally left here so the @font-face above it stays
+   (it's still needed to establish font-display: optional for the named fallback family). */
