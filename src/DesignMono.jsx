@@ -209,7 +209,7 @@ export default function DesignMono() {
       {/* NAVBAR */}
       <nav className="fixed top-0 left-0 w-full z-50 border-b border-silver bg-noir/80 backdrop-blur-sm">
         <div className="flex justify-between items-center px-6 h-16 max-w-[1600px] mx-auto">
-          <div className="font-black text-xl tracking-tighter">SREE<span className="text-gray-500">.DEV</span></div>
+          <div className="font-bold text-xl tracking-tighter">SREE<span className="text-gray-500">.DEV</span></div>
           
           <div className="flex items-center gap-6">
             <div className="hidden md:flex gap-6 text-xs font-mono font-bold tracking-widest uppercase">
@@ -237,7 +237,7 @@ export default function DesignMono() {
               SYSTEM_STATUS: ONLINE // ROLE: FULL_STACK_ENGINEER
             </p>
             
-            <h1 className="text-[14vw] lg:text-[11vw] leading-[0.8] font-black tracking-tighter mix-blend-difference mb-8 break-words relative z-10">
+            <h1 className="text-[14vw] lg:text-[11vw] leading-[0.8] font-bold tracking-tighter mix-blend-difference mb-8 break-words relative z-10">
               SOFTWARE<br/>
               SYSTEMS<br/>
               ENGINEER
@@ -402,7 +402,7 @@ export default function DesignMono() {
         <div className="max-w-[1600px] mx-auto flex flex-col items-center justify-center text-center gap-12">
           
           <div>
-             <h2 className="text-[12vw] font-black leading-none tracking-tighter hover:text-gray-700 transition-colors cursor-pointer select-none">
+             <h2 className="text-[12vw] font-bold leading-none tracking-tighter hover:text-gray-700 transition-colors cursor-pointer select-none">
                LET'S TALK
              </h2>
           </div>
