@@ -7,6 +7,6 @@ export default {
     // 'optional' = browser skips the post-paint font swap on slow connections,
     // eliminating the mobile CLS reflow on the LIVE_PROCESS_MONITOR card and
     // any other element where a late font swap would cause a layout shift.
-    'postcss-font-display': { display: 'optional', replace: true },
+    'postcss-font-display': { display: 'fallback', replace: true },
   },
 }
